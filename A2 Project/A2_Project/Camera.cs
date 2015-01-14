@@ -14,6 +14,7 @@ namespace A2_Project
             Origin = new Vector2(viewport.Width / 2.0f, viewport.Height / 2.0f);
             Zoom = 1.5f;
             _viewport = viewport;
+
         }
 
         public Vector2 Position { get; set; }
