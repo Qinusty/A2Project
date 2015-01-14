@@ -33,7 +33,6 @@ namespace A2_Project.LinkedLists
             {
                 ItemToAdd.Pointer = Start;
                 Start = ItemToAdd;
-
             }
             else if (string.Compare(ItemToAdd.Priority, End.Priority) > 0)
             {
