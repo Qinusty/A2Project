@@ -23,7 +23,7 @@ namespace A2_Project.StarBackground
             Location = _location; 
             Brightness = _brightness; 
             ParralaxValue = _parralax; 
-            Scale = 0.5F/ParralaxValue.X;
+            Scale = 0.8F/ParralaxValue.X;
             Image = Textures.Star;
         }
         public void Draw(SpriteBatch spritebatch, Camera c)

@@ -2,6 +2,7 @@
 using A2_Project.Globals;
 using A2_Project.Screen_Management.Screens;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -59,10 +60,9 @@ namespace A2_Project.Entities
                 Orientation -= (float)(0.05);
             if (InputHelper.isKeyDown(Keys.D))
                 Orientation += (float)(0.05);
-            if (InputHelper.isKeyDown(Keys.S))
+            if (InputHelper.isKeyDown(Keys.Q))
             {
-                
-
+                entityManager.AddEnemy(new Enemy(Location, this));
             }
             if (InputHelper.isKeyPressed(Keys.E))
             {
@@ -84,8 +84,9 @@ namespace A2_Project.Entities
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(Image, Location, new Rectangle(0,0,32,32), Color.White,
+                 Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
             
-            Console.WriteLine("Thrust: " + Thrust + "\n Accel(ms^-2): " + Acceleration + "\n Velocity(ms^-1): " + Velocity + "\n Speed(ms^-1):" + Extensions.Extensions.Pythagorus(Velocity.X, Velocity.Y));
             base.Draw(spriteBatch);
         }
     }

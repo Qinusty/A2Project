@@ -23,7 +23,7 @@ namespace A2_Project.Entities
             protected set;
         }
         protected Texture2D Image = Textures.StarterShip;
-        protected Rectangle DrawRectangle
+        public Rectangle DrawRectangle
         {
             get
             {
@@ -89,9 +89,6 @@ namespace A2_Project.Entities
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 32, 32), Color.White,
-                Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
-
 
         }
     }

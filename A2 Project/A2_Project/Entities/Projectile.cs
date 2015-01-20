@@ -1,9 +1,11 @@
 ﻿using A2_Project.Globals;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using A2_Project.Extensions;
 
 namespace A2_Project.Entities
 {
@@ -23,12 +25,15 @@ namespace A2_Project.Entities
             Image = Textures.Star;
             Mass = 1;
             isAlive = true;
-            LifeTime = 10;
+            LifeTime = 5;
             Location = StartLoc;
+            Orientation = Direction.ToAngle();
             Velocity = InitialVelocity + (Direction * (float)(Force / Mass));
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 10, 3), Color.White,
+                Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
             base.Draw(spriteBatch);
         }
         public override void Update(GameTime gt)

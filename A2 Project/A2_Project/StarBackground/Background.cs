@@ -10,7 +10,7 @@ namespace A2_Project.StarBackground
 {
     public class Background
     {
-        const int MaxNumberOfStars = 4000;
+        const int MaxNumberOfStars = 2200;
         private MyLinkedList<Star> stars = new MyLinkedList<Star>();
         Random rand = new Random();
         public Background()

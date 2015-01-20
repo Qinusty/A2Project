@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using A2_Project.Globals;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,25 @@ namespace A2_Project.Entities
     {
         private Ship Target;
 
-        public Enemy(float x, float y, Ship target)
+        public Enemy(Vector2 StartPos, Ship target)
         {
             Target = target;
-            Location = new Vector2(x, y);
+            Image = Textures.StarterShip;
+            Location = StartPos;
+            Mass = 100;
         }
+        public override void Update(GameTime gt)
+        {
+            Thrust = 10000;
+            Move(gt);
+            base.Update(gt);
+        }
+        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 32, 32), Color.Red,
+                Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
+            base.Draw(spriteBatch);
+        }
+        
     }
 }
