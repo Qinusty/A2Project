@@ -23,27 +23,17 @@ namespace A2_Project.Inventory
         }
         public void AddToInventory(Item ItemToAdd)
         {
-            do
+            int index = findIndex(ItemToAdd);
+            if (index == -1)
             {
-                try
-                {
-                    int index = findIndex(ItemToAdd);
-                    if (!InventorySlots[index].ItemStack.isStackFull())
-                    {
-                        InventorySlots[index].ItemStack.Push(ItemToAdd);
-                        return;
-                    }
-
-                    // Break the do loop
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Item not found in inventory.");
-                    InventorySlots.Add(new InventorySlot(ItemToAdd));
-                    Console.WriteLine("New stack created in for item in inventory.");
-                }
-            } while (true);
-
+                InventorySlots.Add(new InventorySlot(ItemToAdd));
+                AddToInventory(ItemToAdd);
+            }
+            else
+            {
+                if (!InventorySlots[index].ItemStack.isStackFull())
+                    InventorySlots[index].ItemStack.Push(ItemToAdd);
+            }
         }
         /// <summary>
         /// returns -1 if not found.
@@ -56,7 +46,8 @@ namespace A2_Project.Inventory
             {
                 if (InventorySlots[i].ItemName == itemToFind.ItemName)
                 {
-                    return i;
+                    if (!InventorySlots[i].ItemStack.isStackFull())
+                        return i;
                 }
 
             }

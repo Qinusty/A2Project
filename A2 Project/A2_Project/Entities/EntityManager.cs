@@ -61,16 +61,23 @@ namespace A2_Project.Entities
             //PROJECTILES
             if (projectiles.Count > 0)
             {
-                for (int i = projectiles.Count; i > 0; i--)
+                foreach(Projectile p in projectiles)
                 {
-                    if (!projectiles[i - 1].isAlive)
-                        ProjectilesToRemove.Add(projectiles[i-1]);
+                    if (!p.isAlive)
+                        ProjectilesToRemove.Add(p);
 
-                    projectiles[i-1].Update(gameTime);
+                    p.Update(gameTime);
                     // Collision
                     foreach (Enemy e in enemies)
                     {
-                        if () // SORT OUT COLLISION USING DRAWRECTANGLE AS A RECTANGLE TO COLLIDE WITH
+                        if (p.Owner != e)
+                        {
+                            if (p.CollidesWith(e)) // SORT OUT COLLISION USING DRAWRECTANGLE AS A RECTANGLE TO COLLIDE WITH
+                            {
+                                e.Kill();
+                                p.Kill();
+                            }
+                        }
                     }
                 }
             }
@@ -81,6 +88,7 @@ namespace A2_Project.Entities
                 {
                     if (!e.isAlive)
                         EnemiesToRemove.Add(e);
+
                     e.Update(gameTime);
                 }
             }
@@ -103,6 +111,9 @@ namespace A2_Project.Entities
             // Add the new things
             enemies.AddRange(EnemiesToAdd);
             projectiles.AddRange(ProjectilesToAdd);
+            EnemiesToAdd.Clear();
+            ProjectilesToAdd.Clear();
+                
             // Clear 
             EntitiesToRemove.Clear();
             ProjectilesToRemove.Clear();

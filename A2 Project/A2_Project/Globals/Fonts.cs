@@ -8,10 +8,11 @@ namespace A2_Project.Globals
 {
     public static class Fonts
     {
-        public static SpriteFont MenuOptionFont, NarrativeFont, DebugFont;
+        public static SpriteFont MenuOptionFont, NarrativeFont, DebugFont, InventorySlotFont;
 
         public static void Load(ContentManager content)
         {
+            InventorySlotFont = content.Load<SpriteFont>("sFonts/InventorySlotText");
             DebugFont = content.Load<SpriteFont>("sFonts/DebugFont");
         }
     }

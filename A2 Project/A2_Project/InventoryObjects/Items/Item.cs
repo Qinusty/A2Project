@@ -14,7 +14,7 @@ namespace A2_Project.Inventory
         public String ItemName { get; protected set; }
         public ItemType itemType { get; private set; }
         public string ItemDescription { get; private set; }
-        public Texture2D image { get; private set; }
+        public Texture2D Image { get; protected set; }
         public decimal BuyPrice { get; private set; }
         public decimal SellPrice { get; private set; }
         public Ship Owner { get; protected set; }

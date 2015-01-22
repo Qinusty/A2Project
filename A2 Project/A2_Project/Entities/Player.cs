@@ -1,5 +1,6 @@
 ﻿using A2_Project.Extensions;
 using A2_Project.Globals;
+using A2_Project.Inventory.Items;
 using A2_Project.Screen_Management.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,6 +23,13 @@ namespace A2_Project.Entities
             Scale = 1;
             setShip(1);
             entityManager = eM;
+            DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
+            Cargo.AddToInventory(new Fuel_Barrel());
+            Cargo.AddToInventory(new Fuel_Barrel());
+            Cargo.AddToInventory(new Fuel_Barrel());
+            Cargo.AddToInventory(new Fuel_Barrel());
+            Cargo.AddToInventory(new Fuel_Barrel());
+            Cargo.AddToInventory(new Fuel_Barrel());
         }
         public void setShip(int ID)
         {
@@ -37,6 +45,7 @@ namespace A2_Project.Entities
 
         public override void Update(Microsoft.Xna.Framework.GameTime gt)
         {
+            DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
             HandleInput();
             Move(gt);
 
@@ -60,7 +69,7 @@ namespace A2_Project.Entities
                 Orientation -= (float)(0.05);
             if (InputHelper.isKeyDown(Keys.D))
                 Orientation += (float)(0.05);
-            if (InputHelper.isKeyDown(Keys.Q))
+            if (InputHelper.isKeyPressed(Keys.Q))
             {
                 entityManager.AddEnemy(new Enemy(Location, this));
             }

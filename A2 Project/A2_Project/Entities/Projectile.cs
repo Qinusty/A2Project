@@ -12,7 +12,7 @@ namespace A2_Project.Entities
     public class Projectile : Entity
     {
         private Vector2 Velocity;
-        private Ship Owner;
+        public Ship Owner;
         private double LifeTime;
         /// <summary>
         /// The projectile is instantiated and its constant velocity is set based on the force applied and the direction given.
@@ -29,6 +29,7 @@ namespace A2_Project.Entities
             Location = StartLoc;
             Orientation = Direction.ToAngle();
             Velocity = InitialVelocity + (Direction * (float)(Force / Mass));
+            DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, 10, 3);
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
@@ -38,7 +39,9 @@ namespace A2_Project.Entities
         }
         public override void Update(GameTime gt)
         {
+            DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, 10, 3);
             LifeTime -= gt.ElapsedGameTime.TotalSeconds;
+
             if (LifeTime <= 0) // projectiles have a lifespan so that they don't stay forever.
                 base.Kill();
 
@@ -46,6 +49,14 @@ namespace A2_Project.Entities
             Vector2 displacement = Velocity * Globals.GlobalHandler.CurrentSecondsPerCycle;
             Location += displacement;
             base.Update(gt);
+        }
+        public bool CollidesWith(Ship s)
+        {
+            if (DrawRectangle.Intersects(s.DrawRectangle))
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

@@ -77,13 +77,8 @@ namespace A2_Project.Entities
         private Vector2 CalculateDisplacement()
         {
             // SUVAT s = vt - (1/2)at^2 where s = displacement
-            return (Velocity * (float)Globals.GlobalHandler.CurrentSecondsPerCycle) - 
+            return (Velocity * (float)Globals.GlobalHandler.CurrentSecondsPerCycle) -
                 ((Acceleration * (float)Math.Pow(Globals.GlobalHandler.CurrentSecondsPerCycle, 2) / 2));
         }
-        
-
-
-
-
     }
 }

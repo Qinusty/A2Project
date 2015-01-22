@@ -23,13 +23,7 @@ namespace A2_Project.Entities
             protected set;
         }
         protected Texture2D Image = Textures.StarterShip;
-        public Rectangle DrawRectangle
-        {
-            get
-            {
-                return new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
-            }
-        }
+        public Rectangle DrawRectangle;
         /// <summary>
         /// An angle in radians using 0 as north;
         /// </summary>
