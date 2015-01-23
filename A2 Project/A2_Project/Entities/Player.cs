@@ -24,12 +24,6 @@ namespace A2_Project.Entities
             setShip(1);
             entityManager = eM;
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
-            Cargo.AddToInventory(new Fuel_Barrel());
-            Cargo.AddToInventory(new Fuel_Barrel());
-            Cargo.AddToInventory(new Fuel_Barrel());
-            Cargo.AddToInventory(new Fuel_Barrel());
-            Cargo.AddToInventory(new Fuel_Barrel());
-            Cargo.AddToInventory(new Fuel_Barrel());
         }
         public void setShip(int ID)
         {
@@ -45,7 +39,6 @@ namespace A2_Project.Entities
 
         public override void Update(Microsoft.Xna.Framework.GameTime gt)
         {
-            DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
             HandleInput();
             Move(gt);
 

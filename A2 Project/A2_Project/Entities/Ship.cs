@@ -8,6 +8,7 @@ namespace A2_Project.Entities
 {
     public class Ship : Entity
     {
+        
         const float Time = 1 / 60;
         public Inventory.Inventory Cargo;
         /// <summary>
@@ -51,6 +52,7 @@ namespace A2_Project.Entities
 
         public override void Update(GameTime gt)
         {
+            DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
             base.Update(gt);
         }
         protected virtual void Move(GameTime gt)

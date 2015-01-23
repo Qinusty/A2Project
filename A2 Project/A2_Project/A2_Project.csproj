@@ -96,6 +96,7 @@
     <Compile Include="InventoryObjects\InventorySlot.cs" />
     <Compile Include="InventoryObjects\Items\Item.cs" />
     <Compile Include="InventoryObjects\Items\Fuel Barrel.cs" />
+    <Compile Include="InventoryObjects\Items\ItemInWorld.cs" />
     <Compile Include="Launcher\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

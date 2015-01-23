@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using A2_Project.Extensions;
+using A2_Project.Inventory;
+using A2_Project.InventoryObjects.Items;
 
 namespace A2_Project.Entities
 {
@@ -27,20 +29,21 @@ namespace A2_Project.Entities
 
         private Ship PlayerShip;
         private int SpawnCycleTimer = 0;
-        private List<Entity> entities, EntitiesToRemove;
+        private List<ItemInWorld> items, itemsToRemove, itemsToAdd;
         private List<Projectile> projectiles, ProjectilesToRemove, ProjectilesToAdd;
         private List<Enemy> enemies, EnemiesToRemove, EnemiesToAdd;
         
         public EntityManager(Vector2 screenSize)
         {
-            entities = new List<Entity>();
+            items = new List<ItemInWorld>();
             projectiles = new List<Projectile>();
             enemies = new List<Enemy>();
 
             ProjectilesToAdd = new List<Projectile>();
             EnemiesToAdd = new List<Enemy>();
+            itemsToAdd = new List<ItemInWorld>();
 
-            EntitiesToRemove = new List<Entity>();
+            itemsToRemove = new List<ItemInWorld>();
             ProjectilesToRemove = new List<Projectile>();
             EnemiesToRemove = new List<Enemy>();
 
@@ -59,8 +62,6 @@ namespace A2_Project.Entities
             // SHIPS
             PlayerShip.Update(gameTime);
             //PROJECTILES
-            if (projectiles.Count > 0)
-            {
                 foreach(Projectile p in projectiles)
                 {
                     if (!p.isAlive)
@@ -74,16 +75,16 @@ namespace A2_Project.Entities
                         {
                             if (p.CollidesWith(e)) // SORT OUT COLLISION USING DRAWRECTANGLE AS A RECTANGLE TO COLLIDE WITH
                             {
+                                e.DropLoot(this);
                                 e.Kill();
                                 p.Kill();
                             }
                         }
                     }
                 }
-            }
+            
             // ENEMIES
-            if (enemies.Count > 0)
-            {
+
                 foreach (Enemy e in enemies)
                 {
                     if (!e.isAlive)
@@ -91,36 +92,40 @@ namespace A2_Project.Entities
 
                     e.Update(gameTime);
                 }
-            }
+            
 
             // OTHER
-            if (entities.Count > 0)
+            foreach (ItemInWorld i in items)
             {
-                for (int j = entities.Count; j > 0; j--)
-                {
-                    if (!entities[j-1].isAlive)
-                        EntitiesToRemove.Add(entities[j-1]);
+                if (!i.isAlive)
+                    itemsToRemove.Add(i);
 
-                    entities[j-1].Update(gameTime);
+                // Collision with player 
+                if (i.DrawBox.Intersects(PlayerShip.DrawRectangle))
+                {
+                    PlayerShip.Cargo.AddToInventory(i.Item);
+                    itemsToRemove.Add(i);
                 }
+                i.Update(gameTime);
             }
+
             // Remove things which are no longer in the lists.
-            entities.RemoveMultiple<Entity>(EntitiesToRemove);
+            items.RemoveMultiple<ItemInWorld>(itemsToRemove);
             projectiles.RemoveMultiple<Projectile>(ProjectilesToRemove);
             enemies.RemoveMultiple<Enemy>(EnemiesToRemove);
             // Add the new things
+            items.AddRange(itemsToAdd);
             enemies.AddRange(EnemiesToAdd);
             projectiles.AddRange(ProjectilesToAdd);
-            EnemiesToAdd.Clear();
-            ProjectilesToAdd.Clear();
+
                 
             // Clear 
-            EntitiesToRemove.Clear();
+            itemsToRemove.Clear();
             ProjectilesToRemove.Clear();
             EnemiesToRemove.Clear();
-            Console.WriteLine("Bullets: " + projectiles.Count);
-            if (enemies.Count > 0)
-                Console.WriteLine("Enemies: " + enemies.Count);
+            EnemiesToAdd.Clear();
+            ProjectilesToAdd.Clear();
+            itemsToAdd.Clear();
         }
         public void GenerateEnemies(int maxEnemies, int minEnemies = 1)
         {
@@ -133,9 +138,9 @@ namespace A2_Project.Entities
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Entity e in entities)
+            foreach (ItemInWorld i in items)
             {
-                e.Draw(spriteBatch);
+                i.Draw(spriteBatch);
             }
                 // Draw projectiles
             foreach (Projectile p in projectiles)
@@ -146,16 +151,13 @@ namespace A2_Project.Entities
             {
                 e.Draw(spriteBatch);
             }
-                // DRAW ships OVER other entities
+                // DRAW ships OVER other items
             PlayerShip.Draw(spriteBatch);
         }
-        /// <summary>
-        /// Adds a Entity Object to the list of entities within the EntityManager Instance.
-        /// </summary>
-        /// <param name="entity">Entity to be added.</param>
-        public void AddEntity(Entity entity)
+
+        public void LootDrop(Item Item, Vector2 Location)
         {
-            entities.Add(entity);
+            itemsToAdd.Add(new ItemInWorld(Location, Item, 30000));
         }
         public void AddEnemy(Enemy e)
         {

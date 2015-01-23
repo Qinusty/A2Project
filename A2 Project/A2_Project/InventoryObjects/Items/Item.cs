@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using A2_Project.LinkedLists;
 using A2_Project.Inventory.Items;
+using Microsoft.Xna.Framework;
 namespace A2_Project.Inventory
 {
     public abstract class Item
@@ -17,23 +18,32 @@ namespace A2_Project.Inventory
         public Texture2D Image { get; protected set; }
         public decimal BuyPrice { get; private set; }
         public decimal SellPrice { get; private set; }
-        public Ship Owner { get; protected set; }
 
-
-        public delegate void ActivationDelegate();
-        public ActivationDelegate Activate;
         protected void inititialise(string itemName)
         {
-            Console.WriteLine("Loading Item: " + ItemName);
-            DataSet ds = AccessHelper.ExecuteDataSet("Select * FROM Items WHERE ItemName = " + ItemName + ";", "ItemData");
-            DataRow dr = ds.Tables["ItemData"].Rows[0];
+            //Console.WriteLine("Loading Item: " + ItemName);
+            //DataSet ds = AccessHelper.ExecuteDataSet("Select * FROM Items WHERE ItemName = " + ItemName + ";", "ItemData");
+            //DataRow dr = ds.Tables["ItemData"].Rows[0];
 
-            ItemName = dr["ItemName"].ToString();
-            itemType = (ItemType)Enum.Parse(typeof(ItemType), dr["ItemType"].ToString());
-            BuyPrice = int.Parse(dr["BuyPrice"].ToString());
-            SellPrice = int.Parse(dr["SellPrice"].ToString());
-            ItemDescription = dr["Description"].ToString();
-            Console.WriteLine("Item Loaded to Memory: " + ItemName);
+            //ItemName = dr["ItemName"].ToString();
+            //itemType = (ItemType)Enum.Parse(typeof(ItemType), dr["ItemType"].ToString());
+            //BuyPrice = int.Parse(dr["BuyPrice"].ToString());
+            //SellPrice = int.Parse(dr["SellPrice"].ToString());
+            //ItemDescription = dr["Description"].ToString();
+            //Console.WriteLine("Item Loaded to Memory: " + ItemName);
+        }
+        protected void Update(GameTime gt)
+        {
+
+        }
+        /// <summary>
+        /// Used to draw the item in the world
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="Location">This is used to define the location that the item will be placed in the world.</param>
+        protected void Draw(SpriteBatch sb, Vector2 Location)
+        {
+            
         }
         public static SortStatus CompareBuyPrice(Item a, Item b)
         {
@@ -58,14 +68,6 @@ namespace A2_Project.Inventory
             else if (a.itemType == b.itemType)
                 return SortStatus.Equal;
             else return SortStatus.After;
-        }
-        public static void initialiseItems()
-        {
-            #region ITEMLIST DECLARATION
-            List<Type> Items = new List<Type>();
-            Items.Add(typeof(Fuel_Barrel));
-            #endregion
-            
         }
     }
     public enum ItemType

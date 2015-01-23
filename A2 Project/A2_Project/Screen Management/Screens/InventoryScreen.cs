@@ -32,9 +32,12 @@ namespace A2_Project.Screen_Management.Screens
                 spriteBatch.Draw(new SolidColorTexture(Color.WhiteSmoke),
                     WindowRect, Color.WhiteSmoke);
 
-            foreach (InventorySlot invSlot in inventory.InventorySlots)
+            for (int i = 0; i < inventory.InventorySlots.Count; i++)
             {
-                invSlot.Draw(spriteBatch, new Rectangle(WindowRect.X + 10, WindowRect.Y + 10, 64, 64));
+                inventory.InventorySlots[i].Draw(spriteBatch,
+                    new Rectangle(WindowRect.X + 10 + ((20 + 64) * (i % 7))
+                    , WindowRect.Y + 10 + ((10 + 64)) * (int)Math.Floor((double)i / 7), 64, 64));
+
             }
 
             spriteBatch.End();
