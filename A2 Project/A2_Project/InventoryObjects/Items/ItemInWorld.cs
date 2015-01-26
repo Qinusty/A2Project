@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using A2_Project.Extensions;
 
 namespace A2_Project.InventoryObjects.Items
 {
@@ -14,6 +15,20 @@ namespace A2_Project.InventoryObjects.Items
         public Vector2 Location { get; private set; }
         public bool isAlive { get; private set; }
         public Rectangle DrawBox { get; private set; }
+        public int radius
+        {
+            get
+            {
+                if (DrawBox.Width >= DrawBox.Height)
+                {
+                    return DrawBox.Width / 2 + 5;
+                }
+                else return DrawBox.Height / 2 + 5;
+
+            }
+        }
+        public CollisionCircle BoundingCircle;
+
 
         private int LifeSpan;
         
@@ -30,10 +45,12 @@ namespace A2_Project.InventoryObjects.Items
             isAlive = true;
             LifeSpan = _LifeSpan;
             DrawBox = new Rectangle((int)Location.X, (int)Location.Y, 16, 16);
+            BoundingCircle = new CollisionCircle(Location, DrawBox.Width, DrawBox.Height, radius);
         }
 
         public void Update(GameTime gt)
         {
+            BoundingCircle.UpdatePosition(Location, DrawBox.Width, DrawBox.Height);
             LifeSpan -= gt.ElapsedGameTime.Milliseconds;
             if (LifeSpan <= 0)
                 isAlive = false;

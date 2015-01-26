@@ -13,6 +13,19 @@ namespace A2_Project.Entities
     {
         private Vector2 Velocity;
         public Ship Owner;
+        public int radius
+        {
+            get
+            {
+                if (DrawRectangle.Width >= DrawRectangle.Height)
+                {
+                    return 5;
+                }
+                else return 5;
+
+            }
+        }
+        public CollisionCircle BoundingCircle;
         private double LifeTime;
         /// <summary>
         /// The projectile is instantiated and its constant velocity is set based on the force applied and the direction given.
@@ -30,15 +43,20 @@ namespace A2_Project.Entities
             Orientation = Direction.ToAngle();
             Velocity = InitialVelocity + (Direction * (float)(Force / Mass));
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, 10, 3);
+            BoundingCircle = new CollisionCircle(Location, DrawRectangle.Width, DrawRectangle.Height, radius);
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 10, 3), Color.White,
-                Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
-            base.Draw(spriteBatch);
+            if (isAlive)
+            {
+                spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 10, 3), Color.White,
+                    Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
+                base.Draw(spriteBatch);
+            }
         }
         public override void Update(GameTime gt)
         {
+            
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, 10, 3);
             LifeTime -= gt.ElapsedGameTime.TotalSeconds;
 
@@ -48,15 +66,20 @@ namespace A2_Project.Entities
             // SUVAT s = vt - (1/2)at^2 BUT a = 0 therefore s = vt
             Vector2 displacement = Velocity * Globals.GlobalHandler.CurrentSecondsPerCycle;
             Location += displacement;
+            
+            BoundingCircle.UpdatePosition(Location, DrawRectangle.Width, DrawRectangle.Height);
             base.Update(gt);
         }
         public bool CollidesWith(Ship s)
         {
-            if (DrawRectangle.Intersects(s.DrawRectangle))
+            if (isAlive)
             {
-                return true;
+                if (BoundingCircle.isCollided(s.BoundingCircle))
+                {
+                    return true;
+                }
             }
-            else return false;
+            return false;
         }
     }
 }

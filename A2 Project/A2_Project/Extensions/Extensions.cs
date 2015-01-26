@@ -39,7 +39,13 @@ namespace A2_Project.Extensions
         {
             double A, B;
             A = Convert.ToDouble(a); B = Convert.ToDouble(b);
-            return Math.Sqrt(Math.Pow(B, 2) + Math.Pow(B, 2));
+            A = Math.Pow(A, 2); B = Math.Pow(B, 2);
+            return Math.Sqrt(A + B);
+        }
+        public static double DistanceTo(Vector2 posA, Vector2 posB)
+        {
+            Vector2 DistanceVector = posA - posB;
+            return Pythagorus(DistanceVector.X, DistanceVector.Y);
         }
         public static void RemoveMultiple<T>(this List<T> l, List<T> ListOfItemsToRemove)
         {

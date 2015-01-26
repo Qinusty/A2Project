@@ -8,8 +8,24 @@ namespace A2_Project.Entities
 {
     public class Ship : Entity
     {
-        
+        public Ship()
+        {
+            BoundingCircle = new CollisionCircle(Location, DrawRectangle.Width, Image.Width, radius);
+        }
         const float Time = 1 / 60;
+        public int radius
+        {
+            get
+            {
+                if (Image.Width >= Image.Height)
+                {
+                    return Image.Width / 2;
+                }
+                else return Image.Height / 2;
+
+            }
+        }
+        
         public Inventory.Inventory Cargo;
         /// <summary>
         /// Measured in Newtons.
@@ -49,9 +65,10 @@ namespace A2_Project.Entities
             get { return Extensions.Extensions.AngleToVector(Orientation); }
         }
         protected Vector2 PreviousLocation;
-
+        public CollisionCircle BoundingCircle;
         public override void Update(GameTime gt)
         {
+            BoundingCircle.UpdatePosition(Location, Image.Width, Image.Height);
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
             base.Update(gt);
         }

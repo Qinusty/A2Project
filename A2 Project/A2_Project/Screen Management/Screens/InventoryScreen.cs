@@ -35,8 +35,8 @@ namespace A2_Project.Screen_Management.Screens
             for (int i = 0; i < inventory.InventorySlots.Count; i++)
             {
                 inventory.InventorySlots[i].Draw(spriteBatch,
-                    new Rectangle(WindowRect.X + 10 + ((20 + 64) * (i % 7))
-                    , WindowRect.Y + 10 + ((10 + 64)) * (int)Math.Floor((double)i / 7), 64, 64));
+                    new Rectangle(WindowRect.X + 20 + ((20 + 64) * (i % 14))
+                    , WindowRect.Y + 20 + ((10 + 64)) * (int)Math.Floor((double)i / 14), 64, 64));
 
             }
 

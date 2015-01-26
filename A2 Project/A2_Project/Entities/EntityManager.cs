@@ -8,6 +8,7 @@ using System.Text;
 using A2_Project.Extensions;
 using A2_Project.Inventory;
 using A2_Project.InventoryObjects.Items;
+using A2_Project.Entities.Animations;
 
 namespace A2_Project.Entities
 {
@@ -32,20 +33,24 @@ namespace A2_Project.Entities
         private List<ItemInWorld> items, itemsToRemove, itemsToAdd;
         private List<Projectile> projectiles, ProjectilesToRemove, ProjectilesToAdd;
         private List<Enemy> enemies, EnemiesToRemove, EnemiesToAdd;
+        private List<Explosion> explosions, ExplosionsToRemove, ExplosionsToAdd;
         
         public EntityManager(Vector2 screenSize)
         {
             items = new List<ItemInWorld>();
             projectiles = new List<Projectile>();
             enemies = new List<Enemy>();
+            explosions = new List<Explosion>();
 
             ProjectilesToAdd = new List<Projectile>();
             EnemiesToAdd = new List<Enemy>();
             itemsToAdd = new List<ItemInWorld>();
+            ExplosionsToAdd = new List<Explosion>();
 
             itemsToRemove = new List<ItemInWorld>();
             ProjectilesToRemove = new List<Projectile>();
             EnemiesToRemove = new List<Enemy>();
+            ExplosionsToRemove = new List<Explosion>();
 
             PlayerShip = new Player(screenSize, this);
         }
@@ -78,6 +83,7 @@ namespace A2_Project.Entities
                                 e.DropLoot(this);
                                 e.Kill();
                                 p.Kill();
+                                addExplosion(e.GetCentrePoint());
                             }
                         }
                     }
@@ -94,38 +100,60 @@ namespace A2_Project.Entities
                 }
             
 
-            // OTHER
+            // Items
             foreach (ItemInWorld i in items)
             {
                 if (!i.isAlive)
                     itemsToRemove.Add(i);
 
                 // Collision with player 
-                if (i.DrawBox.Intersects(PlayerShip.DrawRectangle))
+                if (i.BoundingCircle.isCollided(PlayerShip.BoundingCircle))
                 {
                     PlayerShip.Cargo.AddToInventory(i.Item);
                     itemsToRemove.Add(i);
                 }
                 i.Update(gameTime);
             }
+            // Explosions
+            foreach (Explosion ex in explosions)
+            {
+                ex.Update(gameTime);
+                if (!ex.isAlive)
+                    ExplosionsToRemove.Add(ex);
+
+                foreach (Enemy e in enemies)
+                {
+                    if (e.BoundingCircle.isCollided(ex.BoundingCircle))
+                    {
+                        e.Kill();
+                        e.DropLoot(this);
+                        addExplosion(e.GetCentrePoint());
+                    }
+                }
+            }
 
             // Remove things which are no longer in the lists.
             items.RemoveMultiple<ItemInWorld>(itemsToRemove);
             projectiles.RemoveMultiple<Projectile>(ProjectilesToRemove);
             enemies.RemoveMultiple<Enemy>(EnemiesToRemove);
+            explosions.RemoveMultiple<Explosion>(ExplosionsToRemove);
             // Add the new things
             items.AddRange(itemsToAdd);
             enemies.AddRange(EnemiesToAdd);
             projectiles.AddRange(ProjectilesToAdd);
+            explosions.AddRange(ExplosionsToAdd);
 
                 
             // Clear 
             itemsToRemove.Clear();
             ProjectilesToRemove.Clear();
             EnemiesToRemove.Clear();
+            ExplosionsToRemove.Clear();
+
             EnemiesToAdd.Clear();
             ProjectilesToAdd.Clear();
             itemsToAdd.Clear();
+            ExplosionsToAdd.Clear();
         }
         public void GenerateEnemies(int maxEnemies, int minEnemies = 1)
         {
@@ -153,6 +181,12 @@ namespace A2_Project.Entities
             }
                 // DRAW ships OVER other items
             PlayerShip.Draw(spriteBatch);
+
+            // Explosions on top of all
+            foreach (Explosion e in explosions)
+            {
+                e.Draw(spriteBatch);
+            }
         }
 
         public void LootDrop(Item Item, Vector2 Location)
@@ -170,6 +204,10 @@ namespace A2_Project.Entities
         public void addProjecile(Vector2 Location, Vector2 InitialVelocity, int ForceToBeApplied, Vector2 Direction)
         {
             ProjectilesToAdd.Add(new Projectile(Location, InitialVelocity, ForceToBeApplied, Direction));
+        }
+        public void addExplosion(Vector2 midPoint)
+        {
+            ExplosionsToAdd.Add(new Explosion(midPoint));
         }
 
     }

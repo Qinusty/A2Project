@@ -44,7 +44,7 @@ namespace A2_Project.Entities
         /// <summary>
         /// Sets the isAlive value to false
         /// </summary>
-        public void Kill()
+        public virtual void Kill()
         {
             isAlive = false;
         }
@@ -60,16 +60,6 @@ namespace A2_Project.Entities
             }
         }
 
-        /// <summary>
-        /// Returns the radius based on the highest value out of Height and Width, divided by 2.
-        /// </summary>
-        public float Radius
-        {
-            get
-            {
-                return Image.Width > Image.Height ? Image.Width / 2 : Image.Height / 2;
-            }
-        }
         public Vector2 Origin
         {
             get

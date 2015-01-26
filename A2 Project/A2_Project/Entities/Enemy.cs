@@ -35,6 +35,11 @@ namespace A2_Project.Entities
                 Orientation, Size / 2f, SpriteEffects.None, 0);
             base.Draw(spriteBatch);
         }
+        public override void Kill()
+        {
+            
+            base.Kill();
+        }
         public void DropLoot(EntityManager eM)
         {
             int x = r.Next(1, 101); // Generate a number between 1 and 100
@@ -44,6 +49,10 @@ namespace A2_Project.Entities
                 eM.LootDrop(new Fuel_Barrel(), Location);
             else if (x > 50 && x <= 100)
                 eM.LootDrop(new Fuel_Barrel(), Location);
+        }
+        public Vector2 GetCentrePoint()
+        {
+            return new Vector2(DrawRectangle.Center.X, DrawRectangle.Center.Y);
         }
         
     }

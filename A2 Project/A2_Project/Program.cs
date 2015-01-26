@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using A2_Project.LinkedLists;
 using A2_Project.Inventory;
 using A2_Project.Inventory.Items;
+using A2_Project.Extensions;
+using Microsoft.Xna.Framework;
 namespace A2_Project
 {
 #if WINDOWS || XBOX
@@ -18,7 +20,7 @@ namespace A2_Project
         static void Main(string[] args)
         {
             //TEST AREA
-            
+
             //END OF TEST AREA
 
             form.ShowDialog();

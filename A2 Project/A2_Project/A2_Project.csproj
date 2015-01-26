@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="Entities\Animations\Explosion.cs" />
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityManager.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\Ship.cs" />
     <Compile Include="Extensions\AccessHelper.cs" />
+    <Compile Include="Extensions\CollisionCircle.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Extensions\InputHelper.cs" />
     <Compile Include="Extensions\SolidColorTexture.cs" />
