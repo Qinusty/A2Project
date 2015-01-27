@@ -80,10 +80,13 @@ namespace A2_Project.Entities
                         {
                             if (p.CollidesWith(e)) // SORT OUT COLLISION USING DRAWRECTANGLE AS A RECTANGLE TO COLLIDE WITH
                             {
-                                e.DropLoot(this);
-                                e.Kill();
-                                p.Kill();
-                                addExplosion(e.GetCentrePoint());
+                                if (e.isAlive)
+                                {
+                                    e.DropLoot(this);
+                                    e.Kill();
+                                    p.Kill();
+                                    addExplosion(e.GetCentrePoint());
+                                }
                             }
                         }
                     }
@@ -120,14 +123,19 @@ namespace A2_Project.Entities
                 ex.Update(gameTime);
                 if (!ex.isAlive)
                     ExplosionsToRemove.Add(ex);
-
-                foreach (Enemy e in enemies)
+                if (ex.CurrentFrame > 5 && ex.CurrentFrame < 30)
                 {
-                    if (e.BoundingCircle.isCollided(ex.BoundingCircle))
+                    foreach (Enemy e in enemies)
                     {
-                        e.Kill();
-                        e.DropLoot(this);
-                        addExplosion(e.GetCentrePoint());
+                        if (e.BoundingCircle.isCollided(ex.BoundingCircle))
+                        {
+                            if (e.isAlive)
+                            {
+                                e.Kill();
+                                e.DropLoot(this);
+                                addExplosion(e.GetCentrePoint());
+                            }
+                        }
                     }
                 }
             }

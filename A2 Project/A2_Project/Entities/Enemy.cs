@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using A2_Project.Extensions;
 
 namespace A2_Project.Entities
 {
@@ -21,16 +22,19 @@ namespace A2_Project.Entities
             Mass = 100;
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
             isAlive = true;
+            Thrust = 0;
+            MaxThrust = 1000;
         }
         public override void Update(GameTime gt)
         {
-            
-            //Thrust = 10000;
+            Orientation = AngleToTarget();
             Move(gt);
             base.Update(gt);
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
+            Orientation = AngleToTarget();
+
             spriteBatch.Draw(Image, DrawRectangle, new Rectangle(0,0,Image.Width,Image.Height), Color.Red,
                 Orientation, Size / 2f, SpriteEffects.None, 0);
             base.Draw(spriteBatch);
@@ -53,6 +57,13 @@ namespace A2_Project.Entities
         public Vector2 GetCentrePoint()
         {
             return new Vector2(DrawRectangle.Center.X, DrawRectangle.Center.Y);
+        }
+        private float AngleToTarget()
+        {
+            Vector2 xy = Target.DrawRectangle.Center.PointToVector()
+                - DrawRectangle.Center.PointToVector();
+
+            return (float)Math.Atan2(xy.Y, xy.X) + 90;
         }
         
     }

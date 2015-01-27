@@ -31,7 +31,7 @@ namespace A2_Project.Entities.Animations
         }
         private Texture2D Frames;
         private int msPerFrame { get { return 50; } }
-        private int CurrentFrame = 0;
+        public int CurrentFrame { get; private set; }
         private int TotalFrames = 81;
         private double counter;
         public CollisionCircle BoundingCircle;

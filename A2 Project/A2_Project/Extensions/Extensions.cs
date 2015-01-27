@@ -17,6 +17,10 @@ namespace A2_Project.Extensions
         {
             return new Vector2((float)Math.Sin(angle), -(float)Math.Cos(angle));
         }
+        public static Vector2 PointToVector(this Point p)
+        {
+            return new Vector2(p.X, p.Y);
+        }
         public static Color getColourFromARGB(byte r, byte g, byte b, byte Alpha)
         {
             Color tempCol = new Color();

@@ -43,6 +43,11 @@ namespace A2_Project.Entities
             get;
             private set;
         }
+        protected Vector2 MaxVelocity
+        {
+            get;
+            private set;
+        }
         /// <summary>
         /// Returns the Vector2 Location from the base class.
         /// </summary>
@@ -68,6 +73,7 @@ namespace A2_Project.Entities
         public CollisionCircle BoundingCircle;
         public override void Update(GameTime gt)
         {
+            Orientation = Orientation % 360;
             BoundingCircle.UpdatePosition(Location, Image.Width, Image.Height);
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
             base.Update(gt);
@@ -91,7 +97,12 @@ namespace A2_Project.Entities
         private Vector2 CalculateVelocity(Vector2 u, Vector2 a, float t)
         {
             // SUVAT v = u + at
-            return u + (a * t);
+            Vector2 velocity = u + (a * t);
+            if (velocity.X > 100)
+                velocity = new Vector2(100, velocity.Y);
+            if (Math.Abs(velocity.Y) > 100)
+                velocity.Y // NEED TO LIMIT VELOCITY
+            return u;
         }
         private Vector2 CalculateDisplacement()
         {
