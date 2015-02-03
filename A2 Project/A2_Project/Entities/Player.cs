@@ -15,15 +15,25 @@ namespace A2_Project.Entities
     public class Player : Ship
     {
         public string ShipName { get; private set; }
-        private EntityManager entityManager;
-        public Player(Vector2 screenSize, EntityManager eM)
+        public int Health { get; private set; }
+        public int MaxHealth { get; private set; }
+        public int Shield { get; private set; }
+        public int MaxShield { get; private set; }
+
+        private int LastHitTimer;
+        private int ShieldRegenTimer;
+        public Player(EntityManager eM, Vector2 screenSize)
         {
             Location = screenSize / 2F;
+            isAlive = true;
             Thrust = 0;
             Scale = 1;
             setShip(1);
             entityManager = eM;
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
+            MaxVelocity = new Vector2(200, 200);
+            MaxHealth = 100; MaxShield = 100;
+            Health = 100; Shield = MaxShield;
         }
         public void setShip(int ID)
         {
@@ -37,8 +47,17 @@ namespace A2_Project.Entities
             Mass = decimal.Parse(dr["Mass"].ToString());            
         }
 
-        public override void Update(Microsoft.Xna.Framework.GameTime gt)
+        public override void Update(GameTime gt)
         {
+            LastHitTimer += gt.ElapsedGameTime.Milliseconds;
+            ShieldRegenTimer += gt.ElapsedGameTime.Milliseconds;
+
+            if (LastHitTimer >= 2500)
+                if (ShieldRegenTimer >= 1000 && Shield < MaxShield)
+                {
+                    ShieldRegenTimer = 0;
+                    Shield += 5;
+                }
             HandleInput();
             Move(gt);
 
@@ -64,7 +83,7 @@ namespace A2_Project.Entities
                 Orientation += (float)(0.05);
             if (InputHelper.isKeyPressed(Keys.Q))
             {
-                entityManager.AddEnemy(new Enemy(Location, this));
+                entityManager.AddEnemy(new Enemy(Location, this, entityManager));
             }
             if (InputHelper.isKeyPressed(Keys.E))
             {
@@ -76,7 +95,7 @@ namespace A2_Project.Entities
             }
             if (InputHelper.isKeyPressed(Keys.Space))
             {
-                entityManager.addProjecile(Location, Velocity, 1000, Extensions.Extensions.AngleToVector(Orientation));
+                FireProjectile(this);
             }
 
         }
@@ -90,6 +109,25 @@ namespace A2_Project.Entities
                  Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
             
             base.Draw(spriteBatch);
+        }
+        public void DamagePlayer(int amount)
+        {
+            LastHitTimer = 0;
+            
+            if (Shield > amount)
+            {
+                Shield -= amount;
+            }
+            else if (Shield > 0)
+            {
+                int DamageOverlap = amount - Shield;
+                Shield = 0;
+                Health -= DamageOverlap;
+            }
+            else Health -= amount;
+
+            if (Health <= 0)
+                isAlive = false;
         }
     }
 }

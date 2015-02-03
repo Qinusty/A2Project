@@ -126,6 +126,8 @@
     <Compile Include="Screen Management\Screens\InventoryScreen.cs" />
     <Compile Include="StarBackground\Background.cs" />
     <Compile Include="StarBackground\Star.cs" />
+    <Compile Include="UI\Bar.cs" />
+    <Compile Include="UI\Interface.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

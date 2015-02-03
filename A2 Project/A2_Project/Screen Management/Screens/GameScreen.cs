@@ -1,5 +1,6 @@
 ﻿using A2_Project.Entities;
 using A2_Project.StarBackground;
+using A2_Project.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,11 +14,15 @@ namespace A2_Project.Screen_Management.Screens
     {
         private Background background;
         private EntityManager entityManager;
+
+        private Interface Interface;
         public GameScreen(string ScreenName)
         {
             entityManager = new EntityManager(Globals.GlobalHandler.BufferArea);
             Name = ScreenName;
             background = new Background();
+
+            Interface = new Interface(entityManager);
         }
         public override void Update(GameTime gameTime)
         {
@@ -39,7 +44,7 @@ namespace A2_Project.Screen_Management.Screens
                 Globals.GlobalHandler._camera.GetViewMatrix(parallax));
             entityManager.Draw(spriteBatch);
             spriteBatch.End();
-
+            Interface.Draw(spriteBatch);
            base.Draw(spriteBatch);
         }
     }

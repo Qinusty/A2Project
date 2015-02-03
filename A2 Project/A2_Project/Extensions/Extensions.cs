@@ -9,6 +9,11 @@ namespace A2_Project.Extensions
 {
     static class Extensions
     {
+        /// <summary>
+        /// Returns the angle from a vector in degrees.
+        /// </summary>
+        /// <param name="vector">The result of VectorA - VectorB</param>
+        /// <returns>Angle in degrees between 2 objects</returns>
         public static float ToAngle(this Vector2 vector)
         {
             return (float)Math.Atan2(vector.Y, vector.X);

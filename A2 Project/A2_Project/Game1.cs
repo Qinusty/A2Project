@@ -70,7 +70,7 @@ namespace A2_Project
             // Create a new SpriteBatch, which can be used to draw textures.
             
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Textures.Load(GlobalHandler.content);
+            Textures.Load(GlobalHandler.content, GraphicsDevice);
             Fonts.Load(GlobalHandler.content);
             
             // ADD DEFAULT SCREENS HERE

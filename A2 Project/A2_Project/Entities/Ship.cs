@@ -8,6 +8,7 @@ namespace A2_Project.Entities
 {
     public class Ship : Entity
     {
+        protected EntityManager entityManager;
         public Ship()
         {
             BoundingCircle = new CollisionCircle(Location, DrawRectangle.Width, Image.Width, radius);
@@ -46,7 +47,7 @@ namespace A2_Project.Entities
         protected Vector2 MaxVelocity
         {
             get;
-            private set;
+            set;
         }
         /// <summary>
         /// Returns the Vector2 Location from the base class.
@@ -98,17 +99,22 @@ namespace A2_Project.Entities
         {
             // SUVAT v = u + at
             Vector2 velocity = u + (a * t);
-            if (velocity.X > 100)
-                velocity = new Vector2(100, velocity.Y);
-            if (Math.Abs(velocity.Y) > 100)
-                velocity.Y // NEED TO LIMIT VELOCITY
-            return u;
+            if (Math.Abs(velocity.X) > MaxVelocity.X)
+                velocity = new Vector2(velocity.X / Math.Abs(velocity.X) * MaxVelocity.X, velocity.Y); 
+            // dividing a by modulus of a causes it to equal 1 or -1 depending on whether it is positive or negative
+            if (Math.Abs(velocity.Y) > MaxVelocity.Y)
+                velocity = new Vector2(velocity.X, velocity.Y / Math.Abs(velocity.Y) * MaxVelocity.Y);// NEED TO LIMIT VELOCITY
+            return velocity;
         }
         private Vector2 CalculateDisplacement()
         {
             // SUVAT s = vt - (1/2)at^2 where s = displacement
             return (Velocity * (float)Globals.GlobalHandler.CurrentSecondsPerCycle) -
                 ((Acceleration * (float)Math.Pow(Globals.GlobalHandler.CurrentSecondsPerCycle, 2) / 2));
+        }
+        protected void FireProjectile(Ship s)
+        {
+            entityManager.addProjecile(Location, Velocity, 1000, Extensions.Extensions.AngleToVector(Orientation), s);
         }
     }
 }

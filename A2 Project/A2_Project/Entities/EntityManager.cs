@@ -9,26 +9,15 @@ using A2_Project.Extensions;
 using A2_Project.Inventory;
 using A2_Project.InventoryObjects.Items;
 using A2_Project.Entities.Animations;
+using System.Windows.Forms;
 
 namespace A2_Project.Entities
 {
     public class EntityManager
     {
         private const int EnemySpawnTimer = 8 * 1000; 
-        #region "Singleton"
-        private static EntityManager instance;
-        public static EntityManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new EntityManager(new Vector2(1280, 1024));
-                return instance;
-            }
-        }
-        #endregion
 
-        private Ship PlayerShip;
+        private Player PlayerShip;
         private int SpawnCycleTimer = 0;
         private List<ItemInWorld> items, itemsToRemove, itemsToAdd;
         private List<Projectile> projectiles, ProjectilesToRemove, ProjectilesToAdd;
@@ -52,7 +41,7 @@ namespace A2_Project.Entities
             EnemiesToRemove = new List<Enemy>();
             ExplosionsToRemove = new List<Explosion>();
 
-            PlayerShip = new Player(screenSize, this);
+            PlayerShip = new Player(this, screenSize); ;
         }
         public void Update(GameTime gameTime)
         {
@@ -66,6 +55,11 @@ namespace A2_Project.Entities
 
             // SHIPS
             PlayerShip.Update(gameTime);
+            if (!PlayerShip.isAlive)
+            {
+                MessageBox.Show("You are dead!");
+                Application.Exit();
+            }
             //PROJECTILES
                 foreach(Projectile p in projectiles)
                 {
@@ -74,6 +68,16 @@ namespace A2_Project.Entities
 
                     p.Update(gameTime);
                     // Collision
+                    //with player
+                    if (p.Owner != PlayerShip)
+                    {
+                        if (p.CollidesWith(PlayerShip))
+                        {
+                            PlayerShip.DamagePlayer(35);
+                            p.Kill();
+                        }
+                    }
+                    // with enemies
                     foreach (Enemy e in enemies)
                     {
                         if (p.Owner != e)
@@ -109,7 +113,8 @@ namespace A2_Project.Entities
                 if (!i.isAlive)
                     itemsToRemove.Add(i);
 
-                // Collision with player 
+                // Collision with player
+                
                 if (i.BoundingCircle.isCollided(PlayerShip.BoundingCircle))
                 {
                     PlayerShip.Cargo.AddToInventory(i.Item);
@@ -169,7 +174,14 @@ namespace A2_Project.Entities
             int enemiesToGenerate = r.Next(minEnemies, maxEnemies);
             for(int i = 0; i < enemiesToGenerate; i++)
             {
-                AddEnemy(new Enemy(PlayerShip.Location + new Vector2(r.Next(-50, 50), r.Next(-50, 50)), PlayerShip));
+                int LeftOrRight = r.Next(0, 2);
+                if (LeftOrRight == 0)
+                    AddEnemy(new Enemy(PlayerShip.Location + 
+                        new Vector2(r.Next(500, 700), r.Next(-400, 400)), PlayerShip, this));
+                else
+                    AddEnemy(new Enemy(PlayerShip.Location + 
+                        new Vector2(-r.Next(500, 700), r.Next(-400, 400)), PlayerShip, this));
+
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -205,13 +217,13 @@ namespace A2_Project.Entities
         {
             EnemiesToAdd.Add(e);
         }
-        public Ship getPlayer()
+        public Player getPlayer()
         {
             return PlayerShip;
         }
-        public void addProjecile(Vector2 Location, Vector2 InitialVelocity, int ForceToBeApplied, Vector2 Direction)
+        public void addProjecile(Vector2 Location, Vector2 InitialVelocity, int ForceToBeApplied, Vector2 Direction, Ship owner)
         {
-            ProjectilesToAdd.Add(new Projectile(Location, InitialVelocity, ForceToBeApplied, Direction));
+            ProjectilesToAdd.Add(new Projectile(Location, InitialVelocity, ForceToBeApplied, Direction, owner));
         }
         public void addExplosion(Vector2 midPoint)
         {

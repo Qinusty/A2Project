@@ -12,9 +12,10 @@ namespace A2_Project.Entities
 {
     public class Enemy : Ship
     {
+        private int firingTimer;
         private Ship Target;
         private Random r = new Random();
-        public Enemy(Vector2 StartPos, Ship target)
+        public Enemy(Vector2 StartPos, Ship target, EntityManager eM)
         {
             Target = target;
             Image = Textures.StarterShip;
@@ -22,18 +23,27 @@ namespace A2_Project.Entities
             Mass = 100;
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
             isAlive = true;
-            Thrust = 0;
-            MaxThrust = 1000;
+            Thrust = 10000;
+            MaxThrust = 10000;
+            MaxVelocity = new Vector2(100, 100);
+            entityManager = eM;
+
         }
         public override void Update(GameTime gt)
         {
             Orientation = AngleToTarget();
+            firingTimer += gt.ElapsedGameTime.Milliseconds;
+            if (firingTimer >= 2000)
+            {
+                FireProjectile(this);
+                firingTimer = 0;
+            }
             Move(gt);
             base.Update(gt);
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            Orientation = AngleToTarget();
+
 
             spriteBatch.Draw(Image, DrawRectangle, new Rectangle(0,0,Image.Width,Image.Height), Color.Red,
                 Orientation, Size / 2f, SpriteEffects.None, 0);
@@ -60,10 +70,10 @@ namespace A2_Project.Entities
         }
         private float AngleToTarget()
         {
-            Vector2 xy = Target.DrawRectangle.Center.PointToVector()
-                - DrawRectangle.Center.PointToVector();
-
-            return (float)Math.Atan2(xy.Y, xy.X) + 90;
+            Vector2 xy = Target.DrawRectangle.Location.PointToVector()
+                - DrawRectangle.Location.PointToVector();
+            
+            return xy.ToAngle() + (float)Math.PI / 2;
         }
         
     }

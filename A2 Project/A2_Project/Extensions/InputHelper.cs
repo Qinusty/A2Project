@@ -53,19 +53,5 @@ namespace A2_Project.Extensions
             return mouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released;
         }
         #endregion
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Returns the Vector at which you would have to travel in to get from the character to the Mouse.</returns>
-        public static Vector2 getMouseAimDirection()
-        {
-            Vector2 direction = MousePosition - EntityManager.Instance.getPlayer().getLocation;
-
-            if (direction == Vector2.Zero)
-                return Vector2.Zero;
-            else return Vector2.Normalize(direction);
-        }
     }
 }
