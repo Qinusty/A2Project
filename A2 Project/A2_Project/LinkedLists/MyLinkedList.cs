@@ -19,6 +19,10 @@ namespace A2_Project.LinkedLists
             get;
             protected set;
         }
+        /// <summary>
+        /// Adds an item to list where its position is defined by its priority.
+        /// </summary>
+        /// <param name="ItemToAdd">Node storing the item to add and the priority of the item.</param>
         public virtual void AddToList(MyLinkedListNode<T> ItemToAdd)
         {
             MyLinkedListNode<T> CurrentItem, PreviousItem;
@@ -49,11 +53,6 @@ namespace A2_Project.LinkedLists
                 PreviousItem.Pointer = ItemToAdd;
                 ItemToAdd.Pointer = CurrentItem;
             }
-        }
-        public void PrintList()
-        {
-            
-        }
-        
+        }        
     }
 }

@@ -12,6 +12,8 @@ namespace A2_Project.Launcher
 {
     public partial class LoginForm : Form
     {
+        private Color ShipColor;
+
         public LoginForm()
         {
             InitializeComponent();
@@ -52,6 +54,15 @@ namespace A2_Project.Launcher
         {
             Program._user = new User("Bypass", "BYPASSED");
             this.Close();
+        }
+
+        private void ClrPckBtn_Click(object sender, EventArgs e)
+        {
+            ColorDialog colDialog = new ColorDialog();
+            colDialog.AnyColor = true;
+            colDialog.ShowDialog();
+            ClrPckBtn.BackColor = colDialog.Color;
+            Globals.Textures.ShipColor = new Microsoft.Xna.Framework.Color(colDialog.Color.R, colDialog.Color.G, colDialog.Color.B, colDialog.Color.A);
         }
     }
 }

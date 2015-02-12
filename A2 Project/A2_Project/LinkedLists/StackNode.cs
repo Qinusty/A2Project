@@ -8,11 +8,17 @@ namespace A2_Project.LinkedLists
 {
     public class StackNode
     {
+        /// <summary>
+        /// The Item stored in the node.
+        /// </summary>
         public Item Value
         {
             get;
             set;
         }
+        /// <summary>
+        /// The pointer to the next node.
+        /// </summary>
         public StackNode Pointer;
     }    
 }

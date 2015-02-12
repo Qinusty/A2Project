@@ -20,6 +20,12 @@ namespace A2_Project.Entities
         public int Shield { get; private set; }
         public int MaxShield { get; private set; }
 
+        public int KillCount
+        {
+            get;
+            private set;
+        }
+
         private int LastHitTimer;
         private int ShieldRegenTimer;
         public Player(EntityManager eM, Vector2 screenSize)
@@ -81,10 +87,10 @@ namespace A2_Project.Entities
                 Orientation -= (float)(0.05);
             if (InputHelper.isKeyDown(Keys.D))
                 Orientation += (float)(0.05);
-            if (InputHelper.isKeyPressed(Keys.Q))
-            {
-                entityManager.AddEnemy(new Enemy(Location, this, entityManager));
-            }
+            //if (InputHelper.isKeyPressed(Keys.Q))
+            //{
+            //    entityManager.AddEnemy(new Enemy(Location, this, entityManager));
+            //}
             if (InputHelper.isKeyPressed(Keys.E))
             {
                 InventoryScreen invScreen = new InventoryScreen("Inventory", Cargo);
@@ -128,6 +134,10 @@ namespace A2_Project.Entities
 
             if (Health <= 0)
                 isAlive = false;
+        }
+        public void AddKill()
+        {
+            KillCount += 1;
         }
     }
 }

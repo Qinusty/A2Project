@@ -35,6 +35,7 @@
             this.PasswordBox = new System.Windows.Forms.TextBox();
             this.LoginBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.ClrPckBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RegisterBTN
@@ -98,13 +99,25 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ClrPckBtn
+            // 
+            this.ClrPckBtn.Location = new System.Drawing.Point(0, 133);
+            this.ClrPckBtn.Name = "ClrPckBtn";
+            this.ClrPckBtn.Size = new System.Drawing.Size(127, 34);
+            this.ClrPckBtn.TabIndex = 10;
+            this.ClrPckBtn.Text = "Ship Colour";
+            this.ClrPckBtn.UseVisualStyleBackColor = true;
+            this.ClrPckBtn.Click += new System.EventHandler(this.ClrPckBtn_Click);
             // 
             // LoginForm
             // 
             this.AcceptButton = this.LoginBtn;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(385, 168);
+            this.Controls.Add(this.ClrPckBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.LoginBtn);
             this.Controls.Add(this.PasswordBox);
@@ -132,5 +145,6 @@
         private System.Windows.Forms.TextBox PasswordBox;
         private System.Windows.Forms.Button LoginBtn;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ClrPckBtn;
     }
 }

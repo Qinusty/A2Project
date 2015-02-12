@@ -10,6 +10,7 @@ namespace A2_Project.Globals
 {
     public static class Textures
     {
+        public static Color ShipColor;
         public static Texture2D StarterShip, Star, Fuel_Barrel;
         public static Texture2D Asteroids, ExplosionFrames;
         public static Texture2D SinglePixel;

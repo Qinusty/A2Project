@@ -79,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
-    <Compile Include="Entities\Animations\Explosion.cs" />
+    <Compile Include="Entities\Explosion.cs" />
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityManager.cs" />
@@ -113,8 +113,6 @@
     </Compile>
     <Compile Include="LinkedLists\MyLinkedList.cs" />
     <Compile Include="LinkedLists\MyLinkedListNode.cs" />
-    <Compile Include="LinkedLists\BinaryTree.cs" />
-    <Compile Include="LinkedLists\BinaryTreeNode.cs" />
     <Compile Include="LinkedLists\Stack.cs" />
     <Compile Include="LinkedLists\StackNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,7 +161,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Entities\Animations\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Launcher\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

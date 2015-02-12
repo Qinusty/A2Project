@@ -86,6 +86,8 @@ namespace A2_Project.Entities
                             {
                                 if (e.isAlive)
                                 {
+                                    if (p.Owner == PlayerShip)
+                                        PlayerShip.AddKill();
                                     e.DropLoot(this);
                                     e.Kill();
                                     p.Kill();

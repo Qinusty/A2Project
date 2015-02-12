@@ -50,7 +50,7 @@ namespace A2_Project.Entities
         {
             if (isAlive)
             {
-                spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 10, 3), Color.White,
+                spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 10, 3), Color.Yellow,
                     Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
                 base.Draw(spriteBatch);
             }

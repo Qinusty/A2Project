@@ -11,12 +11,18 @@ namespace A2_Project.LinkedLists
     {
         const int MaxStackSize = 20;
         public StackNode Top;
+        /// <summary>
+        /// Returns the amount of items in the stack.
+        /// </summary>
         public int StackSize
         {
             get;
             private set;
         }
-
+        /// <summary>
+        /// Adds an item to the top of the stack
+        /// </summary>
+        /// <param name="itemToAdd">Item to be added</param>
         public void Push(Item itemToAdd)
         {
             StackSize += 1;
@@ -25,7 +31,10 @@ namespace A2_Project.LinkedLists
             newNode.Pointer = Top;
             Top = newNode;
         }
-
+        /// <summary>
+        /// Returns and removes the Item from the top of the stack.
+        /// </summary>
+        /// <returns>The item from the top of the stack.</returns>
         public Item PopReturnItem()
         {
             Item retVal;
@@ -39,6 +48,9 @@ namespace A2_Project.LinkedLists
             
             return retVal;
         }
+        /// <summary>
+        /// Removes the item from the top of the stack.
+        /// </summary>
         public void Pop()
         {
             if (Top != null)
@@ -46,6 +58,10 @@ namespace A2_Project.LinkedLists
                 Top = Top.Pointer;
             }
         }
+        /// <summary>
+        /// Checks if the stack is full or not based on the Maximum stack size.
+        /// </summary>
+        /// <returns>returns true or false.</returns>
         public bool isStackFull()
         {
             if (StackSize >= MaxStackSize)

@@ -45,30 +45,30 @@ namespace A2_Project.Inventory
         {
             
         }
-        public static SortStatus CompareBuyPrice(Item a, Item b)
-        {
-            if (a.BuyPrice < b.BuyPrice)
-                return SortStatus.Before;
-            else if (a.BuyPrice == b.BuyPrice)
-                return SortStatus.Equal;
-            else return SortStatus.After;
-        }
-        public static SortStatus CompareName(Item a, Item b)
-        {
-            if (string.Compare(a.ItemName, b.ItemName) < 0)
-                return SortStatus.Before;
-            else if (string.Compare(a.ItemName, b.ItemName) == 0)
-                return SortStatus.Equal;
-            else return SortStatus.After;
-        }
-        public static SortStatus CompareType(Item a, Item b)
-        {
-            if (a.itemType < b.itemType)
-                return SortStatus.Before;
-            else if (a.itemType == b.itemType)
-                return SortStatus.Equal;
-            else return SortStatus.After;
-        }
+        //public static SortStatus CompareBuyPrice(Item a, Item b)
+        //{
+        //    if (a.BuyPrice < b.BuyPrice)
+        //        return SortStatus.Before;
+        //    else if (a.BuyPrice == b.BuyPrice)
+        //        return SortStatus.Equal;
+        //    else return SortStatus.After;
+        //}
+        //public static SortStatus CompareName(Item a, Item b)
+        //{
+        //    if (string.Compare(a.ItemName, b.ItemName) < 0)
+        //        return SortStatus.Before;
+        //    else if (string.Compare(a.ItemName, b.ItemName) == 0)
+        //        return SortStatus.Equal;
+        //    else return SortStatus.After;
+        //}
+        //public static SortStatus CompareType(Item a, Item b)
+        //{
+        //    if (a.itemType < b.itemType)
+        //        return SortStatus.Before;
+        //    else if (a.itemType == b.itemType)
+        //        return SortStatus.Equal;
+        //    else return SortStatus.After;
+        //}
     }
     public enum ItemType
     {

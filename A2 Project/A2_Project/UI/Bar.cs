@@ -34,6 +34,9 @@ namespace A2_Project.UI
                 (int)Dimensions.X, (int)Dimensions.Y), BackColour);
             //ForeBar
             sb.Draw(Textures.SinglePixel, GetForeRect(Value), ForeColour);
+            Vector2 MeasureString = Fonts.DebugFont.MeasureString(Value.ToString());
+            sb.DrawString(Fonts.DebugFont, Value.ToString(), new Vector2(Position.X + (Dimensions.X / 2)
+                - (MeasureString.X / 2), Position.Y + (Dimensions.Y / 2) - (MeasureString.Y / 2)), Color.Black);
             
             
         }
