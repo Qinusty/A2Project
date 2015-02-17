@@ -72,12 +72,15 @@ namespace A2_Project.Entities
         }
         protected Vector2 PreviousLocation;
         public CollisionCircle BoundingCircle;
-        public override void Update(GameTime gt)
+        public virtual void Update(GameTime gt)
         {
             Orientation = Orientation % 360;
             BoundingCircle.UpdatePosition(Location, Image.Width, Image.Height);
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
-            base.Update(gt);
+        }
+        public virtual void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        {
+
         }
         protected virtual void Move(GameTime gt)
         {

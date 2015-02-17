@@ -67,13 +67,6 @@ namespace A2_Project.Entities
                 return Size / 2F;
             }
         }
-        public virtual void Update(GameTime gt)
-        {
-            
-        }
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
 
-        }
     }
 }

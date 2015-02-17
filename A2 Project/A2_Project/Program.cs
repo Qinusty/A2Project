@@ -7,6 +7,7 @@ using A2_Project.Inventory;
 using A2_Project.Inventory.Items;
 using A2_Project.Extensions;
 using Microsoft.Xna.Framework;
+using System.Data;
 namespace A2_Project
 {
 #if WINDOWS || XBOX
@@ -34,15 +35,5 @@ namespace A2_Project
         }
     }
 #endif
-    public class User
-    {
-        public string Username {get; private set;}
-        public string PassHash{get;private set;}
-        public User(string _username, string _pass)
-        {
-            Username = _username;
-            PassHash = _pass;
-        }
-    }
 }
 

@@ -99,6 +99,12 @@
     <Compile Include="InventoryObjects\Items\Item.cs" />
     <Compile Include="InventoryObjects\Items\Fuel Barrel.cs" />
     <Compile Include="InventoryObjects\Items\ItemInWorld.cs" />
+    <Compile Include="Launcher\HighscoreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Launcher\HighscoreForm.Designer.cs">
+      <DependentUpon>HighscoreForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Launcher\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,7 @@
     <Compile Include="Launcher\Register.Designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <Compile Include="Launcher\User.cs" />
     <Compile Include="LinkedLists\MyLinkedList.cs" />
     <Compile Include="LinkedLists\MyLinkedListNode.cs" />
     <Compile Include="LinkedLists\Stack.cs" />
@@ -165,6 +172,9 @@
     <Folder Include="Entities\Animations\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Launcher\HighscoreForm.resx">
+      <DependentUpon>HighscoreForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Launcher\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

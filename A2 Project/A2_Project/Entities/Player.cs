@@ -64,8 +64,8 @@ namespace A2_Project.Entities
                     ShieldRegenTimer = 0;
                     Shield += 5;
                 }
-            HandleInput();
-            Move(gt);
+                HandleInput();
+                Move(gt);
 
             base.Update(gt);
         }
@@ -111,7 +111,7 @@ namespace A2_Project.Entities
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Image, Location, new Rectangle(0,0,32,32), Color.White,
+            spriteBatch.Draw(Image, Location, new Rectangle(0,0,32,32), Textures.ShipColor,
                  Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
             
             base.Draw(spriteBatch);

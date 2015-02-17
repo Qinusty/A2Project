@@ -36,6 +36,7 @@
             this.LoginBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.ClrPckBtn = new System.Windows.Forms.Button();
+            this.HighScoreBTN = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RegisterBTN
@@ -104,7 +105,7 @@
             // 
             // ClrPckBtn
             // 
-            this.ClrPckBtn.Location = new System.Drawing.Point(0, 133);
+            this.ClrPckBtn.Location = new System.Drawing.Point(0, 160);
             this.ClrPckBtn.Name = "ClrPckBtn";
             this.ClrPckBtn.Size = new System.Drawing.Size(127, 34);
             this.ClrPckBtn.TabIndex = 10;
@@ -112,11 +113,22 @@
             this.ClrPckBtn.UseVisualStyleBackColor = true;
             this.ClrPckBtn.Click += new System.EventHandler(this.ClrPckBtn_Click);
             // 
+            // HighScoreBTN
+            // 
+            this.HighScoreBTN.Location = new System.Drawing.Point(259, 160);
+            this.HighScoreBTN.Name = "HighScoreBTN";
+            this.HighScoreBTN.Size = new System.Drawing.Size(127, 34);
+            this.HighScoreBTN.TabIndex = 11;
+            this.HighScoreBTN.Text = "Highscores";
+            this.HighScoreBTN.UseVisualStyleBackColor = true;
+            this.HighScoreBTN.Click += new System.EventHandler(this.HighScoreBTN_Click);
+            // 
             // LoginForm
             // 
             this.AcceptButton = this.LoginBtn;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(385, 168);
+            this.ClientSize = new System.Drawing.Size(385, 195);
+            this.Controls.Add(this.HighScoreBTN);
             this.Controls.Add(this.ClrPckBtn);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.LoginBtn);
@@ -146,5 +158,6 @@
         private System.Windows.Forms.Button LoginBtn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ClrPckBtn;
+        private System.Windows.Forms.Button HighScoreBTN;
     }
 }

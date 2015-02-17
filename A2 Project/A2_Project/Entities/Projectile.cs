@@ -46,16 +46,15 @@ namespace A2_Project.Entities
             BoundingCircle = new CollisionCircle(Location, DrawRectangle.Width, DrawRectangle.Height, radius);
             Owner = s;
         }
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             if (isAlive)
             {
                 spriteBatch.Draw(Image, Location, new Rectangle(0, 0, 10, 3), Color.Yellow,
                     Orientation, Size / 2f, Scale, SpriteEffects.None, 0);
-                base.Draw(spriteBatch);
             }
         }
-        public override void Update(GameTime gt)
+        public void Update(GameTime gt)
         {
             
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, 10, 3);
@@ -69,7 +68,6 @@ namespace A2_Project.Entities
             Location += displacement;
             
             BoundingCircle.UpdatePosition(Location, DrawRectangle.Width, DrawRectangle.Height);
-            base.Update(gt);
         }
         public bool CollidesWith(Ship s)
         {

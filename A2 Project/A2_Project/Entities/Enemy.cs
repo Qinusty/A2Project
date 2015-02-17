@@ -18,7 +18,7 @@ namespace A2_Project.Entities
         public Enemy(Vector2 StartPos, Ship target, EntityManager eM)
         {
             Target = target;
-            Image = Textures.StarterShip;
+            Image = Textures.EnemyShip;
             Location = StartPos;
             Mass = 100;
             DrawRectangle = new Rectangle((int)Location.X, (int)Location.Y, Image.Width, Image.Height);
@@ -27,7 +27,6 @@ namespace A2_Project.Entities
             MaxThrust = 10000;
             MaxVelocity = new Vector2(100, 100);
             entityManager = eM;
-
         }
         public override void Update(GameTime gt)
         {
@@ -43,15 +42,12 @@ namespace A2_Project.Entities
         }
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-
-
             spriteBatch.Draw(Image, DrawRectangle, new Rectangle(0,0,Image.Width,Image.Height), Color.Red,
                 Orientation, Size / 2f, SpriteEffects.None, 0);
             base.Draw(spriteBatch);
         }
         public override void Kill()
         {
-            
             base.Kill();
         }
         public void DropLoot(EntityManager eM)

@@ -58,6 +58,7 @@ namespace A2_Project.Entities
             if (!PlayerShip.isAlive)
             {
                 MessageBox.Show("You are dead!");
+                Program._user.AddHighScore(PlayerShip.KillCount);
                 Application.Exit();
             }
             //PROJECTILES

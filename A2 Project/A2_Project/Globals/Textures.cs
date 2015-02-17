@@ -11,7 +11,7 @@ namespace A2_Project.Globals
     public static class Textures
     {
         public static Color ShipColor;
-        public static Texture2D StarterShip, Star, Fuel_Barrel;
+        public static Texture2D StarterShip, EnemyShip, Star, Fuel_Barrel;
         public static Texture2D Asteroids, ExplosionFrames;
         public static Texture2D SinglePixel;
         public static void Load(ContentManager content, GraphicsDevice gDev)
@@ -22,6 +22,7 @@ namespace A2_Project.Globals
             ExplosionFrames = content.Load<Texture2D>("Textures/Explosions");
             SinglePixel = new Texture2D(gDev, 1, 1);
             SinglePixel.SetData(new[] { Color.White });
+            EnemyShip = content.Load<Texture2D>("Textures/Ship1");
 
         }
         #region "Bibliography"

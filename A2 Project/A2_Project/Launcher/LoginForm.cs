@@ -12,7 +12,6 @@ namespace A2_Project.Launcher
 {
     public partial class LoginForm : Form
     {
-        private Color ShipColor;
 
         public LoginForm()
         {
@@ -21,6 +20,8 @@ namespace A2_Project.Launcher
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
+            ClrPckBtn.BackColor = Color.LawnGreen;
+            
         }
 
         private void RegisterBTN_Click(object sender, EventArgs e)
@@ -48,8 +49,10 @@ namespace A2_Project.Launcher
                 Program._user = new User(UsernameBox.Text, HashedPass);
                 this.Close();
             }
+            Globals.Textures.ShipColor = new Microsoft.Xna.Framework.Color(ClrPckBtn.BackColor.R,
+                ClrPckBtn.BackColor.G, ClrPckBtn.BackColor.B, ClrPckBtn.BackColor.A);
         }
-
+        // Debug button disabled by default
         private void button1_Click(object sender, EventArgs e)
         {
             Program._user = new User("Bypass", "BYPASSED");
@@ -61,8 +64,17 @@ namespace A2_Project.Launcher
             ColorDialog colDialog = new ColorDialog();
             colDialog.AnyColor = true;
             colDialog.ShowDialog();
-            ClrPckBtn.BackColor = colDialog.Color;
-            Globals.Textures.ShipColor = new Microsoft.Xna.Framework.Color(colDialog.Color.R, colDialog.Color.G, colDialog.Color.B, colDialog.Color.A);
+            if (ClrPckBtn.BackColor == Color.Black || ClrPckBtn.BackColor == Color.DarkGray)
+                ClrPckBtn.BackColor = Color.LawnGreen;
+            else ClrPckBtn.BackColor = colDialog.Color;
+            Globals.Textures.ShipColor = new Microsoft.Xna.Framework.Color(colDialog.Color.R, 
+                colDialog.Color.G, colDialog.Color.B, colDialog.Color.A);
+        }
+
+        private void HighScoreBTN_Click(object sender, EventArgs e)
+        {
+            HighscoreForm form = new HighscoreForm();
+            form.ShowDialog();
         }
     }
 }
