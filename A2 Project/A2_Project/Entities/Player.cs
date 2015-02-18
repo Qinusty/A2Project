@@ -44,13 +44,11 @@ namespace A2_Project.Entities
         public void setShip(int ID)
         {
             Console.WriteLine("Setting Ship...");
-            DataSet d = AccessHelper.ExecuteDataSet("SELECT * FROM Ships WHERE ID = " + ID + ";", "ShipDataSet");
-            DataRow dr = d.Tables["ShipDataSet"].Rows[0];
 
-            ShipName = dr["ShipName"].ToString();
-            MaxThrust =  float.Parse(dr["MaxThrust"].ToString());
-            base.Cargo = new Inventory.Inventory("Player Cargo", int.Parse(dr["CargoCapacity"].ToString())); // set inventory size
-            Mass = decimal.Parse(dr["Mass"].ToString());            
+            ShipName = "PlayerShip";
+            MaxThrust =  30000;
+            base.Cargo = new Inventory.Inventory("Player Cargo", 30); // set inventory size
+            Mass = 300;            
         }
 
         public override void Update(GameTime gt)

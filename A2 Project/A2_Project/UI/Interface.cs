@@ -31,9 +31,14 @@ namespace A2_Project.UI
             sb.Begin();
             HealthBar.Draw(sb, eM.getPlayer().Health);
             ShieldBar.Draw(sb, eM.getPlayer().Shield);
-            sb.DrawString(Fonts.DebugFont, "Kills: " + eM.getPlayer().KillCount, new Vector2(10, 100), Color.Red);
+            if ( Program._user.Highscores.Length != 0) // check that there is some highscores first
+            {
+                sb.DrawString(Fonts.DebugFont, "Highscore: " + Program._user.Highscores.Max(), new Vector2(10, 120), Color.Red);
+            }
+            sb.DrawString(Fonts.DebugFont, "Kills: " + eM.getPlayer().KillCount,
+                new Vector2(10, 140), Color.Red);
             sb.DrawString(Fonts.DebugFont, "Time Played: " + stopWatch.Elapsed.Minutes + 
-                ":" + stopWatch.Elapsed.Seconds, new Vector2(10, 120), Color.Red);
+                ":" + stopWatch.Elapsed.Seconds, new Vector2(10, 160), Color.Red);
             sb.End();
         }
 
