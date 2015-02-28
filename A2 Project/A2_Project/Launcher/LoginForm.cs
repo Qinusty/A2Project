@@ -41,7 +41,7 @@ namespace A2_Project.Launcher
             DataSet ds = AccessHelper.ExecuteDataSet(sql, "Users");
             if (ds.Tables["Users"].Rows.Count == 0)
             {
-                MessageBox.Show("Incorrect Username or password, try again.");
+                MessageBox.Show(this, "Incorrect Username or password, try again.");
             }
             else
             {
